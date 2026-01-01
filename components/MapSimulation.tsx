@@ -48,22 +48,31 @@ const MapSimulation: React.FC<MapSimulationProps> = ({ className, active = true 
             backgroundSize: '20px 20px'
         }}></div>
         
-        {/* Roads/Lines (Static decoration) */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
-            <path d="M 0 50 Q 50 20 100 60" fill="none" stroke="#64748b" strokeWidth="2" />
-            <path d="M 20 100 Q 40 50 80 0" fill="none" stroke="#64748b" strokeWidth="2" />
-            <circle cx="20" cy="80" r="40" stroke="#cbd5e1" strokeWidth="1" fill="none" />
+        {/* Roads/Lines (Static decoration) - Added viewBox so coordinates 0-100 scale to fit div */}
+        <svg 
+          className="absolute inset-0 w-full h-full pointer-events-none opacity-20"
+          viewBox="0 0 100 100" 
+          preserveAspectRatio="none"
+        >
+            <path d="M 0 50 Q 50 20 100 60" fill="none" stroke="#64748b" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+            <path d="M 20 100 Q 40 50 80 0" fill="none" stroke="#64748b" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+            <circle cx="20" cy="80" r="10" stroke="#cbd5e1" strokeWidth="1" fill="none" vectorEffect="non-scaling-stroke" />
         </svg>
 
-        {/* Trail */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none">
+        {/* Trail - Fixed: Removed % and added viewBox */}
+        <svg 
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
             <polyline 
-                points={path.map(p => `${p.x}%,${p.y}%`).join(' ')} 
+                points={path.map(p => `${p.x},${p.y}`).join(' ')} 
                 fill="none" 
                 stroke="#3b82f6" 
                 strokeWidth="2" 
                 strokeDasharray="4 2"
                 className="opacity-50"
+                vectorEffect="non-scaling-stroke" 
             />
         </svg>
 
